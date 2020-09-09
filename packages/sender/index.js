@@ -1,27 +1,45 @@
-require("dotenv").config();
+const mqtt = require("mqtt");
+const yargs = require("yargs");
+const MQTTPattern = require("mqtt-pattern");
 var Client = require("castv2").Client;
 var mdns = require("mdns");
 const uuid = require("uuid").v4;
 
-var browser = mdns.createBrowser(mdns.tcp("googlecast"));
+const argv = yargs.options({
+  "mqtt-url": {
+    describe: "MQTT connection URL",
+    demandOption: true,
+  },
+  "mqtt-prefix": {
+    default: "sofia",
+  },
+}).argv;
 
-browser.on("serviceUp", function (service) {
+const FUNCTION_PATTERN = `${argv.mqttPrefix}/+function/#`;
+const TOPIC_PATTERN_SET = `${argv.mqttPrefix}/set/+service`;
+const CONFIG_CHANNEL = "urn:x-cast:me.caille.nova.sofia.config";
+
+const mqttClient = mqtt.connect(argv.mqttUrl);
+const clientId = `client-${uuid()}`;
+const services = {};
+
+var browser = mdns.createBrowser(mdns.tcp("googlecast"));
+browser.on("serviceUp", (service) => {
   console.log(
     "found device %s at %s:%d",
     service.name,
     service.addresses[0],
     service.port
   );
-  ondeviceup(service.addresses[0]);
-  browser.stop();
+  services[service.name] = service;
+  mqttClient.publish(
+    `${argv.mqttPrefix}/status/discovery/${service.name}`,
+    JSON.stringify(service)
+  );
 });
-
 browser.start();
 
-const CONFIG_CHANNEL = "urn:x-cast:me.caille.nova.sofia.config";
-const clientId = `client-${uuid()}`;
-
-function ondeviceup(host) {
+const startDevice = (host) => {
   var client = new Client();
   client.connect(host, function () {
     // create various namespace handlers
@@ -46,8 +64,16 @@ function ondeviceup(host) {
 
     var transportId = null;
 
+    // establish virtual connection to the receiver
+    connection.send({ type: "CONNECT" });
+
+    // start heartbeating
+    const interval = setInterval(function () {
+      heartbeat.send({ type: "PING" });
+    }, 5000);
+
     const createCustomChannel = (id) => {
-      console.log("CREATE CUSTOM");
+      console.log("Sending configuration");
       transportId = id;
       const mySenderConnection = client.createChannel(
         clientId,
@@ -64,25 +90,19 @@ function ondeviceup(host) {
       );
       config.send({
         type: "CONFIG",
-        config: { mqttUrl: process.env.MQTT_URL },
+        config: { mqttUrl: argv.mqttUrl },
       });
-
-      setInterval(function () {
-        config.send({
-          type: "KEEPALIVE",
-        });
-      }, 5000);
+      config.on("message", (data) => {
+        if (data.type === "CONFIGURED") {
+          clearInterval(interval);
+          receiver.close();
+          heartbeat.close();
+          connection.close();
+          client.close();
+        }
+      });
     };
 
-    // establish virtual connection to the receiver
-    connection.send({ type: "CONNECT" });
-
-    // start heartbeating
-    setInterval(function () {
-      heartbeat.send({ type: "PING" });
-    }, 5000);
-
-    // launch YouTube app
     receiver.send({ type: "LAUNCH", appId: "844DF153", requestId: 1 });
 
     // display receiver status updates
@@ -92,4 +112,33 @@ function ondeviceup(host) {
       }
     });
   });
-}
+};
+
+const handleSetMessage = async (topic, message) => {
+  const params = MQTTPattern.exec(TOPIC_PATTERN_SET, topic);
+  if (!params) {
+    return;
+  }
+
+  const { service: serviceName } = params;
+  const service = services[serviceName];
+  console.log("Starting ", serviceName);
+  startDevice(service.addresses[0]);
+};
+
+const handleMessage = (topic, ...params) => {
+  const parsedTopic = MQTTPattern.exec(FUNCTION_PATTERN, topic);
+  if (!parsedTopic) {
+    return;
+  }
+
+  switch (parsedTopic.function) {
+    case "set":
+      return handleSetMessage(topic, ...params);
+    default:
+      return null;
+  }
+};
+
+mqttClient.on("message", handleMessage);
+mqttClient.subscribe(`${argv.mqttPrefix}/set/#`);
