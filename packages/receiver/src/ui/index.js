@@ -3,8 +3,8 @@ import Typography from "typography";
 
 export const Container = styled.div`
   display: grid;
-  width: 640px;
-  height: 310px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   grid-template-columns: 3fr 2fr;
 `;
