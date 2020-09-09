@@ -33,6 +33,9 @@ const CastProvider = ({ children }) => {
       if (event.data.type === "CONFIG") {
         setConfig(event.data.config);
       }
+      castInstance.current.sendCustomMessage(CONFIG_CHANNEL, undefined, {
+        type: "CONFIGURED",
+      });
     });
 
     const options = new window.cast.framework.CastReceiverOptions();
