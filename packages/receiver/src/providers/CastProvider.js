@@ -30,7 +30,9 @@ const CastProvider = ({ children }) => {
     }
 
     castInstance.current.addCustomMessageListener(CONFIG_CHANNEL, (event) => {
-      setConfig(event.data.config);
+      if (event.type === "CONFIG") {
+        setConfig(event.data.config);
+      }
     });
 
     const options = new window.cast.framework.CastReceiverOptions();

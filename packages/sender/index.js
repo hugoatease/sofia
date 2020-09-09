@@ -66,6 +66,12 @@ function ondeviceup(host) {
         type: "CONFIG",
         config: { mqttUrl: process.env.MQTT_URL },
       });
+
+      setInterval(function () {
+        config.send({
+          type: "KEEPALIVE",
+        });
+      }, 5000);
     };
 
     // establish virtual connection to the receiver
