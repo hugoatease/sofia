@@ -9,6 +9,11 @@ export const Container = styled.div`
   grid-template-columns: 3fr 2fr;
 `;
 
+export const Widgets = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const typography = new Typography({
   baseFontSize: "26px",
   baseLineHeight: 3,

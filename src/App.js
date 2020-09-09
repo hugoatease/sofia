@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { MQTTProvider } from "react-mqtt";
 import { createGlobalStyle } from "styled-components";
 import { CastContext } from "contexts";
-import { Container } from "ui";
+import { Container, Widgets } from "ui";
 import CurrentlyPlaying from "components/CurrentlyPlaying";
 import Background from "components/Background";
+import ClockWeather from "components/ClockWeather";
 
 const MQTT_URL = process.env.REACT_APP_MQTT_URL;
 
@@ -32,6 +33,9 @@ function App() {
       <Background />
       <Container>
         <CurrentlyPlaying />
+        <Widgets>
+          <ClockWeather />
+        </Widgets>
       </Container>
     </MQTTProvider>
   );
