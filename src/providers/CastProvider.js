@@ -11,50 +11,34 @@ const CastProvider = ({ children }) => {
 
   useMount(() => {
     castInstance.current = window.cast.framework.CastReceiverContext.getInstance();
-    const castDebugLogger = window.cast.debug.CastDebugLogger.getInstance();
+    // const castDebugLogger = window.cast.debug.CastDebugLogger.getInstance();
     // castDebugLogger.setEnabled(true);
     // castDebugLogger.showDebugLogs(true);
-    castDebugLogger.loggerLevelByEvents = {
-      "cast.framework.events.category.CORE":
-        window.cast.framework.LoggerLevel.INFO,
-      "cast.framework.events.EventType.MEDIA_STATUS":
-        window.cast.framework.LoggerLevel.DEBUG,
-      sofia: window.cast.framework.LoggerLevel.DEBUG,
-    };
+    // castDebugLogger.loggerLevelByEvents = {
+    //   "cast.framework.events.category.CORE":
+    //     window.cast.framework.LoggerLevel.INFO,
+    //   "cast.framework.events.EventType.MEDIA_STATUS":
+    //     window.cast.framework.LoggerLevel.DEBUG,
+    //   sofia: window.cast.framework.LoggerLevel.DEBUG,
+    // };
     setIsReady(true);
   });
-
-  const castDebugLogger = window.cast.debug.CastDebugLogger.getInstance();
 
   useEffect(() => {
     if (!isReady) {
       return;
     }
 
-    try {
-      castInstance.current.addCustomMessageListener(CONFIG_CHANNEL, (event) => {
-        castDebugLogger.info("event", JSON.stringify(event));
-        castDebugLogger.info("event state", JSON.stringify(event.state));
-        castDebugLogger.info("event data", JSON.stringify(event.data));
-        castDebugLogger.info(
-          "event data config",
-          JSON.stringify(event.data.config)
-        );
-        setConfig(event.data.config);
-      });
-      castDebugLogger.info("sofia", "added config listener");
-    } catch (err) {
-      castDebugLogger.error("sofia", err);
-    }
+    castInstance.current.addCustomMessageListener(CONFIG_CHANNEL, (event) => {
+      setConfig(event.data.config);
+    });
 
     const options = new window.cast.framework.CastReceiverOptions();
     options.customNamespaces = {
       [CONFIG_CHANNEL]: window.cast.framework.system.MessageType.JSON,
     };
     castInstance.current.start(options);
-  }, [isReady, castDebugLogger]);
-
-  castDebugLogger.info("sofia", `CONFIG : ${JSON.stringify(config)}`);
+  }, [isReady]);
 
   return (
     <CastContext.Provider

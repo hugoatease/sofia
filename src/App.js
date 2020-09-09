@@ -4,6 +4,8 @@ import { createGlobalStyle } from "styled-components";
 import CurrentlyPlaying from "components/CurrentlyPlaying";
 import { CastContext } from "contexts";
 
+const MQTT_URL = process.env.REACT_APP_MQTT_URL;
+
 const GlobalStyle = createGlobalStyle`
   body {
     background: url("https://images.unsplash.com/photo-1599366611308-719895c34512?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb");
@@ -15,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const { config } = useContext(CastContext);
-  if (!config?.mqttUrl) {
+  if (!config?.mqttUrl && !MQTT_URL) {
     return (
       <>
         <GlobalStyle />
@@ -25,7 +27,7 @@ function App() {
   }
 
   return (
-    <MQTTProvider url={config.mqttUrl}>
+    <MQTTProvider url={config?.mqttUrl || MQTT_URL}>
       <GlobalStyle />
       Hello
       <CurrentlyPlaying />
