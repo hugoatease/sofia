@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "castv2": "^0.1.10",
+    "dotenv": "^8.2.0",
     "mdns": "^2.5.1"
   }
 }
