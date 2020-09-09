@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import CastProvider from "providers/CastProvider";
 import * as serviceWorker from "./serviceWorker";
+import "normalize.css";
 
 ReactDOM.render(
   <React.StrictMode>

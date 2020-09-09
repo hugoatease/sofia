@@ -11,11 +11,13 @@
     "mdns": "^2.5.1",
     "mqtt": "^4.2.1",
     "mqtt-pattern": "^1.2.0",
+    "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "react-use": "^15.3.4",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "typography": "^0.16.19"
   },
   "scripts": {
     "start": "react-scripts start",
