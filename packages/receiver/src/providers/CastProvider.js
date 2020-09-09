@@ -36,6 +36,7 @@ const CastProvider = ({ children }) => {
     });
 
     const options = new window.cast.framework.CastReceiverOptions();
+    options.disableIdleTimeout = true;
     options.customNamespaces = {
       [CONFIG_CHANNEL]: window.cast.framework.system.MessageType.JSON,
     };
