@@ -3,7 +3,7 @@ const mqtt = require("mqtt");
 const yargs = require("yargs");
 const MQTTPattern = require("mqtt-pattern");
 var Client = require("castv2").Client;
-var mdns = require("mdns");
+const dnssd = require("dnssd");
 const uuid = require("uuid").v4;
 
 const argv = yargs.options({
@@ -24,7 +24,7 @@ const mqttClient = mqtt.connect(argv.mqttUrl);
 const clientId = `client-${uuid()}`;
 const services = {};
 
-var browser = mdns.createBrowser(mdns.tcp("googlecast"));
+const browser = dnssd.Browser(dnssd.tcp("googlecast"));
 browser.on("serviceUp", (service) => {
   console.log(
     "found device %s at %s:%d",
