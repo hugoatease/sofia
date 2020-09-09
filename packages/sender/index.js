@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const mqtt = require("mqtt");
 const yargs = require("yargs");
 const MQTTPattern = require("mqtt-pattern");

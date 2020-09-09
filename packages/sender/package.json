@@ -3,6 +3,9 @@
   "version": "0.1.1",
   "main": "index.js",
   "license": "Apache-2.0",
+  "bin": {
+    "sofia-sender": "./index.js"
+  },
   "dependencies": {
     "castv2": "^0.1.10",
     "mdns": "^2.5.1",
