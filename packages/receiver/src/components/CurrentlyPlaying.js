@@ -20,7 +20,7 @@ const ListenInfo = styled.div`
   padding: ${rhythm()};
 `;
 
-const CurrentlyPlaying = () => {
+const CurrentlyPlaying = ({ style }) => {
   const [listen, setListen] = useState();
 
   const handleMessage = ({ payload }) => {
@@ -34,7 +34,7 @@ const CurrentlyPlaying = () => {
   }
 
   return (
-    <Listen image={listen.ImageURL}>
+    <Listen image={listen.ImageURL} style={style}>
       <ListenInfo>
         <div style={scale(2)}>{listen.TrackName}</div>
         <div style={scale(1)}>{listen.ArtistName}</div>

@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { MQTTProvider } from "react-mqtt";
 import { createGlobalStyle } from "styled-components";
 import { CastContext } from "contexts";
-import { Container, Widgets } from "ui";
+import { Widgets, Layout } from "ui";
 import CurrentlyPlaying from "components/CurrentlyPlaying";
 import Background from "components/Background";
 import ClockWeather from "components/ClockWeather";
+import Footer from "components/Footer";
 
 const MQTT_URL = process.env.REACT_APP_MQTT_URL;
 
@@ -31,12 +32,13 @@ function App() {
     <MQTTProvider url={config?.mqttUrl || MQTT_URL}>
       <GlobalStyle />
       <Background />
-      <Container>
-        <CurrentlyPlaying />
-        <Widgets>
+      <Layout>
+        <CurrentlyPlaying style={{ gridRow: 1 }} />
+        <Widgets style={{ gridRow: 1 }}>
           <ClockWeather />
         </Widgets>
-      </Container>
+      </Layout>
+      <Footer />
     </MQTTProvider>
   );
 }

@@ -11,9 +11,6 @@ export const rhythm = typography.rhythm;
 
 export const Container = styled.div`
   display: grid;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
   grid-template-columns: 3fr 2fr;
 `;
 
@@ -30,4 +27,12 @@ export const Widget = styled.div`
   color: #fff;
   padding: ${rhythm(0.5)};
   ${scale(1)};
+`;
+
+export const Layout = styled.div`
+  display: grid;
+  height: 96vh;
+  width: 100vw;
+  grid-template-columns: 2fr 1fr;
+  overflow: hidden;
 `;
