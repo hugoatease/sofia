@@ -4742,6 +4742,11 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+fast-deep-equal@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
+  integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
@@ -9086,6 +9091,13 @@ react-error-overlay@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
+react-icons@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.11.0.tgz#2ca2903dfab8268ca18ebd8cc2e879921ec3b254"
+  integrity sha512-JRgiI/vdF6uyBgyZhVyYJUZAop95Sy4XDe/jmT3R/bKliFWpO/uZBwvSjWEdxwzec7SYbEPNPck0Kff2tUGM2Q==
+  dependencies:
+    camelcase "^5.0.0"
+
 react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -10467,6 +10479,13 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swr@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.2.tgz#1197e06553f71afbc42dba758459f12daea96805"
+  integrity sha512-Bs5Bihq1hQ66O5bdKaL47iZ2nlAaBsd8tTLRLkw9stZeuBEfH7zSuQI95S2TpchL0ybsMq3isWwuso2uPvCfHA==
+  dependencies:
+    fast-deep-equal "2.0.1"
+
 symbol-tree@^3.2.2:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
@@ -11064,6 +11083,16 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   integrity sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
   dependencies:
     minimalistic-assert "^1.0.0"
+
+weather-icons-sass@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/weather-icons-sass/-/weather-icons-sass-2.0.10.tgz#af0552dc6e6ebba70be61f56fc2168d71ad597b6"
+  integrity sha512-0uqyLSdJH68yP3I3lsU5qYuduoY6NHbv2ADi/3PcyIbFp0y22LmmbhbL7/wtyNTVoe0KclpVDbJuNDKHnu7AGg==
+
+weather-icons@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/weather-icons/-/weather-icons-1.3.2.tgz#8ac000f92858427252b80cc57a06bfa827900ac0"
+  integrity sha1-isAA+ShYQnJSuAzFega/qCeQCsA=
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
