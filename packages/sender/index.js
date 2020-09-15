@@ -14,6 +14,12 @@ const argv = yargs.options({
   "mqtt-prefix": {
     default: "sofia",
   },
+  lat: {
+    describe: "Current latitude, for displaying weather data",
+  },
+  lon: {
+    describe: "Current longitude, for displaying weather data",
+  },
 }).argv;
 
 const FUNCTION_PATTERN = `${argv.mqttPrefix}/+function/#`;
@@ -89,9 +95,15 @@ const startDevice = (host) => {
         CONFIG_CHANNEL,
         "JSON"
       );
+      const configData = {
+        mqttUrl: argv.mqttUrl,
+        weatherLat: argv.lat,
+        weatherLon: argv.lon,
+      };
+      console.log("Configuration: ", configData);
       config.send({
         type: "CONFIG",
-        config: { mqttUrl: argv.mqttUrl },
+        config: configData,
       });
       config.on("message", (data) => {
         if (data.type === "CONFIGURED") {
