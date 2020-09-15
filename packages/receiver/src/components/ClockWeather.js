@@ -10,12 +10,14 @@ import { useConfig } from "hooks";
 import "weather-icons-sass/css/weather-icons.css";
 
 const ClockWeatherWrapper = styled(Widget)`
+`;
+
+const Clock = styled.div`
   font-family: "Roboto Mono";
 `;
 
-const Clock = styled.div``;
-
 const CurrentWeather = styled.div`
+  font-family: "Roboto Mono";
   ${scale(1)};
   i {
     margin-right: ${rhythm(1 / 4)};
@@ -28,9 +30,11 @@ const Line = styled.div`
 `;
 
 const HourlyForecast = styled(Widget)`
-  font-family: "Roboto Mono";
   display: flex;
+  font-family: "Roboto Mono";
+  flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: -${rhythm(1/2)};
 `;
 
 const ForecastItem = styled.div`
@@ -39,9 +43,10 @@ const ForecastItem = styled.div`
   align-items: center;
   padding: 0 ${rhythm(1 / 4)};
   ${scale(0.25)};
+  margin-top: ${rhythm(1 / 2)};
 
   i {
-    ${scale(1)};
+    ${scale(0.5)};
   }
 `;
 

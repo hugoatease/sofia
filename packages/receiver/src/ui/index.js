@@ -31,8 +31,8 @@ export const Widget = styled.div`
 
 export const Layout = styled.div`
   display: grid;
-  height: 96vh;
+  height: 100vh;
   width: 100vw;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 60vw 40vw;
   overflow: hidden;
 `;

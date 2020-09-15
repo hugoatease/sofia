@@ -6,7 +6,6 @@ import { Widgets, Layout } from "ui";
 import CurrentlyPlaying from "components/CurrentlyPlaying";
 import Background from "components/Background";
 import ClockWeather from "components/ClockWeather";
-import Footer from "components/Footer";
 
 const MQTT_URL = process.env.REACT_APP_MQTT_URL;
 
@@ -38,7 +37,6 @@ function App() {
           <ClockWeather />
         </Widgets>
       </Layout>
-      <Footer />
     </MQTTProvider>
   );
 }

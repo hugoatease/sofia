@@ -8,6 +8,7 @@ const Listen = styled.div`
   background-image: url("${({ image }) => image}");
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const ListenInfo = styled.div`
